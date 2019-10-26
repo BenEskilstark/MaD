@@ -1,0 +1,22 @@
+
+ - - - - - - TODO - - - - - -
+ - bring back multiplayer support
+ - add city entities
+ - add targeting
+ - add UI sidebar
+
+ - - - - - - NEXT - - - - - -
+ - find plugin to support ?. notation
+
+ - - - - - - BUGS - - - - - -
+
+
+ - - - - - - WISH - - - - - -
+
+
+
+ - - - - - - DONE - - - - - -
+ - flip trajectories so the parabolas are in the right orientation
+ - handle missile initialTheta vs current theta w/rendering and updating theta
+ - tune simulation so missiles can travel the length of the world
+ - tune simulation so that the missile's movements are smoother
