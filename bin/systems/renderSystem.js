@@ -10,6 +10,9 @@ var _require2 = require('../selectors/selectors'),
 var _require3 = require('../entities/projectile'),
     renderMissile = _require3.renderMissile;
 
+var d3 = require('d3');
+var topojson = require('topojson-client');
+
 /**
  * Render things into the canvas
  */
@@ -18,6 +21,7 @@ var initRenderSystem = function initRenderSystem(store) {
   var time = store.getState().game.time;
   var canvas = null;
   var ctx = null;
+  var svg = null;
   store.subscribe(function () {
     var state = store.getState();
     // only check on a new tick
@@ -31,6 +35,7 @@ var initRenderSystem = function initRenderSystem(store) {
       canvas = document.getElementById('canvas');
       if (!canvas) return; // don't break
       ctx = canvas.getContext('2d');
+      svg = d3.select('body').append('svg');
     }
 
     // clear
@@ -38,6 +43,16 @@ var initRenderSystem = function initRenderSystem(store) {
     ctx.fillRect(0, 0, config.canvasWidth, config.canvasHeight);
 
     render(state, ctx);
+  });
+};
+
+var renderD3 = function renderD3(state, svg) {
+  var projection = d3.geoOrthographic().scale(config.canvasWidth / 2).translate(config.canvasWidth / 2, config.canvasHeight / 2).clipAngle(90).precision(0);
+
+  var path = d3.geoPath().projection(projection);
+  d3.json('../world_110m.json', function (error, world) {
+    if (error) throw error;
+    svg.selectAll('path').data(topojson.feature(world, world.objects.countries).features).enter().append('path').attr('d', path);
   });
 };
 

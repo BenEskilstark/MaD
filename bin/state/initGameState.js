@@ -9,9 +9,10 @@ var _require2 = require('../entities/projectile'),
 var _require3 = require('../config'),
     config = _require3.config;
 
-var initGameState = function initGameState() {
-  var testMissile = makeMissile({ x: 0, y: 150 }, { x: 800, y: 175 });
+var initGameState = function initGameState(players) {
+  var testMissile = makeMissile({ x: 50, y: 150 }, { x: 750, y: 175 });
   return {
+    players: players,
     time: 0,
     tickInterval: null,
     entities: [testMissile]

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var config = {
   msPerTick: 30,
@@ -16,7 +16,8 @@ var config = {
 
   g: 0.1,
 
-  maxHistorySize: 200
+  maxHistorySize: 200,
+  playerColors: ['blue', 'red', 'green']
 };
 
 module.exports = { config: config };

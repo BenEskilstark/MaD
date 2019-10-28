@@ -35,15 +35,14 @@ const initRenderSystem = (store: Store): void => {
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, config.canvasWidth, config.canvasHeight);
 
-    renderD3(state, svg);
     render(state, ctx);
   });
 }
 
-const renderD3(state: State, svg: any): void => {
+const renderD3 = (state: State, svg: any): void => {
   const projection = d3.geoOrthographic()
-    .scale(config.canvasWidth / 2);
-    .translate(config.canvasWidth / 2, config.canvasHeight / 2);
+    .scale(config.canvasWidth / 2)
+    .translate(config.canvasWidth / 2, config.canvasHeight / 2)
     .clipAngle(90)
     .precision(0);
 

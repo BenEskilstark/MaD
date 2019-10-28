@@ -3,7 +3,7 @@
 var _require = require('redux'),
     createStore = _require.createStore;
 
-var Game = require('./ui/Game.react');
+var Main = require('./ui/Main.react');
 var React = require('react');
 var ReactDOM = require('react-dom');
 
@@ -19,4 +19,12 @@ window.store = store; // useful for debugging
 // initializes the other systems on game start
 initSystems(store);
 
-ReactDOM.render(React.createElement(Game, { store: store }), document.getElementById('container'));
+// subscribe the game rendering to the store
+renderGame(store);
+store.subscribe(function () {
+  renderGame(store);
+});
+
+function renderGame(store) {
+  ReactDOM.render(React.createElement(Main, { state: store.getState(), dispatch: store.dispatch }), document.getElementById('container'));
+}

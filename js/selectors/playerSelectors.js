@@ -3,7 +3,7 @@
 const {invariant} = require('../utils/errors');
 const {config} = require('../config');
 
-import type {Color, GameID, State, GameState, Player, PlayerID, Game, GameID} from '../types';
+import type {Color, State, GameState, Player, PlayerID, Game, GameID} from '../types';
 
 const getPlayerColor = (state: State, playerID: PlayerID): Color => {
   const colorIndex = state.game.players.indexOf(playerID) + 1;
@@ -23,7 +23,7 @@ const getHostPlayer = (state: State): Player => {
   return state.game.players[0];
 };
 
-const isHost(state: State): boolean => {
+const isHost = (state: State): boolean => {
   return getClientPlayer(state).id === getHostPlayer(state).id;
 };
 

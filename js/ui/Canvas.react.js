@@ -1,22 +1,19 @@
+// @flow
 
-const React = require('React');
+const React = require('react');
 
-/**
- *  props: {
- *    width: pixels, height: pixels, game: GameState
- *  }
- */
-class Canvas extends React.Component {
+type Props = {
+  width: number,
+  height: number,
+};
 
-  render() {
-    const {props} = this;
-    return (
-      <canvas
+function Canvas(props: Props): React.Node {
+  return (
+    <canvas
         id="canvas" className="gameCanvas"
         width={props.width} height={props.height}
       />
-    );
-  }
-};
+  );
+}
 
 module.exports = Canvas;

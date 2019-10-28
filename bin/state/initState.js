@@ -2,8 +2,12 @@
 
 var initState = function initState() {
   return {
+    players: {},
+    games: {},
     game: null,
-    modal: null
+    modal: null,
+    localChat: '',
+    chat: ''
   };
 };
 
