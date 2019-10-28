@@ -34,10 +34,10 @@ function getModal(props) {
   if (!props.modal) {
     return null;
   }
-  var _props$modal = props.modal,
-      title = _props$modal.title,
-      text = _props$modal.text,
-      buttons = _props$modal.buttons;
+  var _props$state$modal = props.state.modal,
+      title = _props$state$modal.title,
+      text = _props$state$modal.text,
+      buttons = _props$state$modal.buttons;
 
   var rect = document.getElementById('container').getBoundingClientRect();
   var buttonHTML = buttons.map(function (button) {

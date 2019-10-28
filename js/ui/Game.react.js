@@ -2,6 +2,7 @@
 
 const React = require('react');
 const Canvas = require('./Canvas.react');
+const Sidebar = require('./Sidebar.react');
 
 import type {State} from '../types';
 
@@ -18,6 +19,7 @@ function Game(props: Props): React.Node {
       <Canvas
         width={props.width} height={props.height}
       />
+      <Sidebar state={props.state} />
     </div>
   );
 }

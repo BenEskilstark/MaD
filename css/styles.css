@@ -52,8 +52,15 @@ p {
  * Game
  ******************************************************************************/
 
+.sidebar {
+  border: 1px solid black;
+  display: inline-block;
+  width: 400px;
+}
+
 .gameCanvas {
   background-color: white;
+  float: left;
 }
 
 .modal {

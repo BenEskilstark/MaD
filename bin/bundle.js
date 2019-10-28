@@ -169,7 +169,7 @@ module.exports = {
   makeMissile: makeMissile,
   renderMissile: renderMissile
 };
-},{"../config":1,"../selectors/selectors":11,"../utils/ballistics":22,"../utils/vectors":26,"./entity":2}],4:[function(require,module,exports){
+},{"../config":1,"../selectors/selectors":11,"../utils/ballistics":23,"../utils/vectors":27,"./entity":2}],4:[function(require,module,exports){
 'use strict';
 
 var _require = require('redux'),
@@ -200,7 +200,7 @@ store.subscribe(function () {
 function renderGame(store) {
   ReactDOM.render(React.createElement(Main, { state: store.getState(), dispatch: store.dispatch }), document.getElementById('container'));
 }
-},{"./reducers/rootReducer":8,"./systems/initSystems":14,"./ui/Main.react":20,"react":70,"react-dom":67,"redux":71}],5:[function(require,module,exports){
+},{"./reducers/rootReducer":8,"./systems/initSystems":14,"./ui/Main.react":20,"react":71,"react-dom":68,"redux":72}],5:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -261,7 +261,7 @@ var fireReducer = function fireReducer(state, action) {
 };
 
 module.exports = { fireReducer: fireReducer };
-},{"../config":1,"../entities/projectile":3,"../utils/queue":24,"../utils/vectors":26}],6:[function(require,module,exports){
+},{"../config":1,"../entities/projectile":3,"../utils/queue":25,"../utils/vectors":27}],6:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -469,7 +469,7 @@ var handleTick = function handleTick(state) {
 };
 
 module.exports = { tickReducer: tickReducer };
-},{"../config":1,"../selectors/selectors":11,"../utils/errors":23,"../utils/queue":24,"../utils/updateEntities":25,"../utils/vectors":26,"./gameReducer":6}],10:[function(require,module,exports){
+},{"../config":1,"../selectors/selectors":11,"../utils/errors":24,"../utils/queue":25,"../utils/updateEntities":26,"../utils/vectors":27,"./gameReducer":6}],10:[function(require,module,exports){
 'use strict';
 
 var _require = require('../utils/errors'),
@@ -522,7 +522,7 @@ module.exports = {
   isHost: isHost,
   getNextGameID: getNextGameID
 };
-},{"../config":1,"../utils/errors":23}],11:[function(require,module,exports){
+},{"../config":1,"../utils/errors":24}],11:[function(require,module,exports){
 'use strict';
 
 var _require = require('../utils/errors'),
@@ -549,7 +549,7 @@ var getEntityByID = function getEntityByID(game, id) {
 module.exports = {
   getEntityByID: getEntityByID
 };
-},{"../config":1,"../utils/errors":23}],12:[function(require,module,exports){
+},{"../config":1,"../utils/errors":24}],12:[function(require,module,exports){
 'use strict';
 
 var _require = require('../entities/entity'),
@@ -793,7 +793,7 @@ var renderEntity = function renderEntity(state, ctx, entity) {
 };
 
 module.exports = { initRenderSystem: initRenderSystem };
-},{"../config":1,"../entities/projectile":3,"../selectors/selectors":11,"d3":61,"topojson-client":80}],17:[function(require,module,exports){
+},{"../config":1,"../entities/projectile":3,"../selectors/selectors":11,"d3":62,"topojson-client":81}],17:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -806,11 +806,12 @@ function Canvas(props) {
 }
 
 module.exports = Canvas;
-},{"react":70}],18:[function(require,module,exports){
+},{"react":71}],18:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
 var Canvas = require('./Canvas.react');
+var Sidebar = require('./Sidebar.react');
 
 function Game(props) {
 
@@ -819,12 +820,13 @@ function Game(props) {
     { className: 'background', id: 'background' },
     React.createElement(Canvas, {
       width: props.width, height: props.height
-    })
+    }),
+    React.createElement(Sidebar, { state: props.state })
   );
 }
 
 module.exports = Game;
-},{"./Canvas.react":17,"react":70}],19:[function(require,module,exports){
+},{"./Canvas.react":17,"./Sidebar.react":21,"react":71}],19:[function(require,module,exports){
 'use strict';
 
 function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
@@ -855,7 +857,7 @@ function Lobby(props) {
 }
 
 module.exports = Lobby;
-},{"../selectors/playerSelectors":10,"../selectors/selectors":11,"./components/Button.react":21,"react":70}],20:[function(require,module,exports){
+},{"../selectors/playerSelectors":10,"../selectors/selectors":11,"./components/Button.react":22,"react":71}],20:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -892,10 +894,10 @@ function getModal(props) {
   if (!props.modal) {
     return null;
   }
-  var _props$modal = props.modal,
-      title = _props$modal.title,
-      text = _props$modal.text,
-      buttons = _props$modal.buttons;
+  var _props$state$modal = props.state.modal,
+      title = _props$state$modal.title,
+      text = _props$state$modal.text,
+      buttons = _props$state$modal.buttons;
 
   var rect = document.getElementById('container').getBoundingClientRect();
   var buttonHTML = buttons.map(function (button) {
@@ -928,7 +930,26 @@ function getModal(props) {
 }
 
 module.exports = Main;
-},{"../config":1,"./Game.react":18,"./Lobby.react":19,"./components/Button.react":21,"react":70}],21:[function(require,module,exports){
+},{"../config":1,"./Game.react":18,"./Lobby.react":19,"./components/Button.react":22,"react":71}],21:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+
+var _require = require('../config'),
+    config = _require.config;
+
+function Sidebar(props) {
+
+  return React.createElement('div', {
+    className: 'sidebar',
+    style: {
+      height: config.canvasHeight
+    }
+  });
+}
+
+module.exports = Sidebar;
+},{"../config":1,"react":71}],22:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -980,7 +1001,7 @@ var Button = function (_React$Component) {
 }(React.Component);
 
 module.exports = Button;
-},{"React":29}],22:[function(require,module,exports){
+},{"React":30}],23:[function(require,module,exports){
 'use strict';
 
 var pow = Math.pow,
@@ -1025,7 +1046,7 @@ module.exports = {
   getBallisticAngle: getBallisticAngle,
   getBallisticPosAtTime: getBallisticPosAtTime
 };
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 "use strict";
 
 var invariant = function invariant(condition, message) {
@@ -1035,7 +1056,7 @@ var invariant = function invariant(condition, message) {
 };
 
 module.exports = { invariant: invariant };
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 "use strict";
 
 var queueAdd = function queueAdd(queue, item, maxLength) {
@@ -1047,7 +1068,7 @@ var queueAdd = function queueAdd(queue, item, maxLength) {
 };
 
 module.exports = { queueAdd: queueAdd };
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -1108,7 +1129,7 @@ var physicsStepEntity = function physicsStepEntity(entity) {
 module.exports = {
   updateEntity: updateEntity
 };
-},{"../config":1,"../utils/ballistics":22,"../utils/queue":24,"../utils/vectors":26}],26:[function(require,module,exports){
+},{"../config":1,"../utils/ballistics":23,"../utils/queue":25,"../utils/vectors":27}],27:[function(require,module,exports){
 "use strict";
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -1194,7 +1215,7 @@ module.exports = {
   distance: distance,
   vectorTheta: vectorTheta
 };
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 (function (process){
 /** @license React v16.11.0
  * react.development.js
@@ -3516,7 +3537,7 @@ module.exports = react;
 }
 
 }).call(this,require('_process'))
-},{"_process":81,"object-assign":62,"prop-types/checkPropTypes":63}],28:[function(require,module,exports){
+},{"_process":82,"object-assign":63,"prop-types/checkPropTypes":64}],29:[function(require,module,exports){
 /** @license React v16.11.0
  * react.production.min.js
  *
@@ -3543,7 +3564,7 @@ b,c){return W().useImperativeHandle(a,b,c)},useDebugValue:function(){},useLayout
 if(null!=b){void 0!==b.ref&&(g=b.ref,l=J.current);void 0!==b.key&&(d=""+b.key);if(a.type&&a.type.defaultProps)var f=a.type.defaultProps;for(k in b)K.call(b,k)&&!L.hasOwnProperty(k)&&(e[k]=void 0===b[k]&&void 0!==f?f[k]:b[k])}var k=arguments.length-2;if(1===k)e.children=c;else if(1<k){f=Array(k);for(var m=0;m<k;m++)f[m]=arguments[m+2];e.children=f}return{$$typeof:p,type:a.type,key:d,ref:g,props:e,_owner:l}},createFactory:function(a){var b=M.bind(null,a);b.type=a;return b},isValidElement:N,version:"16.11.0",
 __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED:{ReactCurrentDispatcher:I,ReactCurrentBatchConfig:{suspense:null},ReactCurrentOwner:J,IsSomeRendererActing:{current:!1},assign:h}},Y={default:X},Z=Y&&X||Y;module.exports=Z.default||Z;
 
-},{"object-assign":62}],29:[function(require,module,exports){
+},{"object-assign":63}],30:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -3554,7 +3575,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/react.development.js":27,"./cjs/react.production.min.js":28,"_process":81}],30:[function(require,module,exports){
+},{"./cjs/react.development.js":28,"./cjs/react.production.min.js":29,"_process":82}],31:[function(require,module,exports){
 // https://d3js.org/d3-array/ v1.2.4 Copyright 2018 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -4146,7 +4167,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 // https://d3js.org/d3-axis/ v1.0.12 Copyright 2018 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -4341,7 +4362,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 // https://d3js.org/d3-brush/ v1.1.3 Copyright 2019 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-dispatch'), require('d3-drag'), require('d3-interpolate'), require('d3-selection'), require('d3-transition')) :
@@ -4956,7 +4977,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 }));
 
-},{"d3-dispatch":37,"d3-drag":38,"d3-interpolate":46,"d3-selection":53,"d3-transition":58}],33:[function(require,module,exports){
+},{"d3-dispatch":38,"d3-drag":39,"d3-interpolate":47,"d3-selection":54,"d3-transition":59}],34:[function(require,module,exports){
 // https://d3js.org/d3-chord/ v1.0.6 Copyright 2018 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-array'), require('d3-path')) :
@@ -5188,7 +5209,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-},{"d3-array":30,"d3-path":47}],34:[function(require,module,exports){
+},{"d3-array":31,"d3-path":48}],35:[function(require,module,exports){
 // https://d3js.org/d3-collection/ v1.0.7 Copyright 2018 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -5407,7 +5428,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-},{}],35:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 // https://d3js.org/d3-color/ v1.4.0 Copyright 2019 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -5990,7 +6011,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 }));
 
-},{}],36:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 // https://d3js.org/d3-contour/ v1.3.2 Copyright 2018 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-array')) :
@@ -6423,7 +6444,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-},{"d3-array":30}],37:[function(require,module,exports){
+},{"d3-array":31}],38:[function(require,module,exports){
 // https://d3js.org/d3-dispatch/ v1.0.5 Copyright 2018 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -6520,7 +6541,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 // https://d3js.org/d3-drag/ v1.2.4 Copyright 2019 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-dispatch'), require('d3-selection')) :
@@ -6756,7 +6777,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 }));
 
-},{"d3-dispatch":37,"d3-selection":53}],39:[function(require,module,exports){
+},{"d3-dispatch":38,"d3-selection":54}],40:[function(require,module,exports){
 // https://d3js.org/d3-dsv/ v1.1.1 Copyright 2019 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -6975,7 +6996,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-},{}],40:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 // https://d3js.org/d3-ease/ v1.0.5 Copyright 2018 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -7236,7 +7257,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-},{}],41:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 // https://d3js.org/d3-fetch/ v1.1.2 Copyright 2018 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-dsv')) :
@@ -7340,7 +7361,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-},{"d3-dsv":39}],42:[function(require,module,exports){
+},{"d3-dsv":40}],43:[function(require,module,exports){
 // https://d3js.org/d3-force/ v1.2.1 Copyright 2019 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-quadtree'), require('d3-collection'), require('d3-dispatch'), require('d3-timer')) :
@@ -8010,7 +8031,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-},{"d3-collection":34,"d3-dispatch":37,"d3-quadtree":49,"d3-timer":57}],43:[function(require,module,exports){
+},{"d3-collection":35,"d3-dispatch":38,"d3-quadtree":50,"d3-timer":58}],44:[function(require,module,exports){
 // https://d3js.org/d3-format/ v1.4.1 Copyright 2019 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -8350,7 +8371,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 }));
 
-},{}],44:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 // https://d3js.org/d3-geo/ v1.11.6 Copyright 2019 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-array')) :
@@ -11478,7 +11499,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-},{"d3-array":30}],45:[function(require,module,exports){
+},{"d3-array":31}],46:[function(require,module,exports){
 // https://d3js.org/d3-hierarchy/ v1.1.8 Copyright 2018 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -12770,7 +12791,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-},{}],46:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 // https://d3js.org/d3-interpolate/ v1.3.2 Copyright 2018 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-color')) :
@@ -13344,7 +13365,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-},{"d3-color":35}],47:[function(require,module,exports){
+},{"d3-color":36}],48:[function(require,module,exports){
 // https://d3js.org/d3-path/ v1.0.8 Copyright 2019 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -13487,7 +13508,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 }));
 
-},{}],48:[function(require,module,exports){
+},{}],49:[function(require,module,exports){
 // https://d3js.org/d3-polygon/ v1.0.5 Copyright 2018 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -13639,7 +13660,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-},{}],49:[function(require,module,exports){
+},{}],50:[function(require,module,exports){
 // https://d3js.org/d3-quadtree/ v1.0.6 Copyright 2019 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -14060,7 +14081,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-},{}],50:[function(require,module,exports){
+},{}],51:[function(require,module,exports){
 // https://d3js.org/d3-random/ v1.1.2 Copyright 2018 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -14177,7 +14198,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-},{}],51:[function(require,module,exports){
+},{}],52:[function(require,module,exports){
 // https://d3js.org/d3-scale-chromatic/ v1.5.0 Copyright 2019 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-interpolate'), require('d3-color')) :
@@ -14700,7 +14721,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 }));
 
-},{"d3-color":35,"d3-interpolate":46}],52:[function(require,module,exports){
+},{"d3-color":36,"d3-interpolate":47}],53:[function(require,module,exports){
 // https://d3js.org/d3-scale/ v2.2.2 Copyright 2019 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-collection'), require('d3-array'), require('d3-interpolate'), require('d3-format'), require('d3-time'), require('d3-time-format')) :
@@ -15867,7 +15888,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-},{"d3-array":30,"d3-collection":34,"d3-format":43,"d3-interpolate":46,"d3-time":56,"d3-time-format":55}],53:[function(require,module,exports){
+},{"d3-array":31,"d3-collection":35,"d3-format":44,"d3-interpolate":47,"d3-time":57,"d3-time-format":56}],54:[function(require,module,exports){
 // https://d3js.org/d3-selection/ v1.4.0 Copyright 2019 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -16856,7 +16877,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-},{}],54:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 // https://d3js.org/d3-shape/ v1.3.5 Copyright 2019 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-path')) :
@@ -18807,7 +18828,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-},{"d3-path":47}],55:[function(require,module,exports){
+},{"d3-path":48}],56:[function(require,module,exports){
 // https://d3js.org/d3-time-format/ v2.2.1 Copyright 2019 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-time')) :
@@ -19516,7 +19537,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 }));
 
-},{"d3-time":56}],56:[function(require,module,exports){
+},{"d3-time":57}],57:[function(require,module,exports){
 // https://d3js.org/d3-time/ v1.1.0 Copyright 2019 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -19891,7 +19912,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 }));
 
-},{}],57:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 // https://d3js.org/d3-timer/ v1.0.9 Copyright 2018 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -20042,7 +20063,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-},{}],58:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 // https://d3js.org/d3-transition/ v1.2.0 Copyright 2019 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-dispatch'), require('d3-timer'), require('d3-color'), require('d3-interpolate'), require('d3-selection'), require('d3-ease')) :
@@ -20898,7 +20919,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-},{"d3-color":35,"d3-dispatch":37,"d3-ease":40,"d3-interpolate":46,"d3-selection":53,"d3-timer":57}],59:[function(require,module,exports){
+},{"d3-color":36,"d3-dispatch":38,"d3-ease":41,"d3-interpolate":47,"d3-selection":54,"d3-timer":58}],60:[function(require,module,exports){
 // https://d3js.org/d3-voronoi/ v1.1.4 Copyright 2018 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -21899,7 +21920,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-},{}],60:[function(require,module,exports){
+},{}],61:[function(require,module,exports){
 // https://d3js.org/d3-zoom/ v1.8.3 Copyright 2019 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-dispatch'), require('d3-drag'), require('d3-interpolate'), require('d3-selection'), require('d3-transition')) :
@@ -22398,7 +22419,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 }));
 
-},{"d3-dispatch":37,"d3-drag":38,"d3-interpolate":46,"d3-selection":53,"d3-transition":58}],61:[function(require,module,exports){
+},{"d3-dispatch":38,"d3-drag":39,"d3-interpolate":47,"d3-selection":54,"d3-transition":59}],62:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -22687,7 +22708,7 @@ Object.keys(d3Zoom).forEach(function (k) {
 });
 exports.version = version;
 
-},{"d3-array":30,"d3-axis":31,"d3-brush":32,"d3-chord":33,"d3-collection":34,"d3-color":35,"d3-contour":36,"d3-dispatch":37,"d3-drag":38,"d3-dsv":39,"d3-ease":40,"d3-fetch":41,"d3-force":42,"d3-format":43,"d3-geo":44,"d3-hierarchy":45,"d3-interpolate":46,"d3-path":47,"d3-polygon":48,"d3-quadtree":49,"d3-random":50,"d3-scale":52,"d3-scale-chromatic":51,"d3-selection":53,"d3-shape":54,"d3-time":56,"d3-time-format":55,"d3-timer":57,"d3-transition":58,"d3-voronoi":59,"d3-zoom":60}],62:[function(require,module,exports){
+},{"d3-array":31,"d3-axis":32,"d3-brush":33,"d3-chord":34,"d3-collection":35,"d3-color":36,"d3-contour":37,"d3-dispatch":38,"d3-drag":39,"d3-dsv":40,"d3-ease":41,"d3-fetch":42,"d3-force":43,"d3-format":44,"d3-geo":45,"d3-hierarchy":46,"d3-interpolate":47,"d3-path":48,"d3-polygon":49,"d3-quadtree":50,"d3-random":51,"d3-scale":53,"d3-scale-chromatic":52,"d3-selection":54,"d3-shape":55,"d3-time":57,"d3-time-format":56,"d3-timer":58,"d3-transition":59,"d3-voronoi":60,"d3-zoom":61}],63:[function(require,module,exports){
 /*
 object-assign
 (c) Sindre Sorhus
@@ -22779,7 +22800,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 	return to;
 };
 
-},{}],63:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -22885,7 +22906,7 @@ checkPropTypes.resetWarningCache = function() {
 module.exports = checkPropTypes;
 
 }).call(this,require('_process'))
-},{"./lib/ReactPropTypesSecret":64,"_process":81}],64:[function(require,module,exports){
+},{"./lib/ReactPropTypesSecret":65,"_process":82}],65:[function(require,module,exports){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -22899,7 +22920,7 @@ var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 
 module.exports = ReactPropTypesSecret;
 
-},{}],65:[function(require,module,exports){
+},{}],66:[function(require,module,exports){
 (function (process){
 /** @license React v16.11.0
  * react-dom.development.js
@@ -50630,7 +50651,7 @@ module.exports = reactDom;
 }
 
 }).call(this,require('_process'))
-},{"_process":81,"object-assign":62,"prop-types/checkPropTypes":63,"react":70,"scheduler":76,"scheduler/tracing":77}],66:[function(require,module,exports){
+},{"_process":82,"object-assign":63,"prop-types/checkPropTypes":64,"react":71,"scheduler":77,"scheduler/tracing":78}],67:[function(require,module,exports){
 /** @license React v16.11.0
  * react-dom.production.min.js
  *
@@ -50922,7 +50943,7 @@ xe,ye,Ca.injectEventPluginsByName,fa,Sc,function(a){ya(a,Rc)},cb,db,Pd,Ba,Sj,{cu
 (function(a){var b=a.findFiberByHostInstance;return ok(n({},a,{overrideHookState:null,overrideProps:null,setSuspenseHandler:null,scheduleUpdate:null,currentDispatcherRef:Ea.ReactCurrentDispatcher,findHostInstanceByFiber:function(a){a=ic(a);return null===a?null:a.stateNode},findFiberByHostInstance:function(a){return b?b(a):null},findHostInstancesForRefresh:null,scheduleRefresh:null,scheduleRoot:null,setRefreshHandler:null,getCurrentFiber:null}))})({findFiberByHostInstance:Fc,bundleType:0,version:"16.11.0",
 rendererPackageName:"react-dom"});var Dk={default:Ck},Ek=Dk&&Ck||Dk;module.exports=Ek.default||Ek;
 
-},{"object-assign":62,"react":70,"scheduler":76}],67:[function(require,module,exports){
+},{"object-assign":63,"react":71,"scheduler":77}],68:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -50966,13 +50987,13 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/react-dom.development.js":65,"./cjs/react-dom.production.min.js":66,"_process":81,"react":70}],68:[function(require,module,exports){
-arguments[4][27][0].apply(exports,arguments)
-},{"_process":81,"dup":27,"object-assign":62,"prop-types/checkPropTypes":63}],69:[function(require,module,exports){
+},{"./cjs/react-dom.development.js":66,"./cjs/react-dom.production.min.js":67,"_process":82,"react":71}],69:[function(require,module,exports){
 arguments[4][28][0].apply(exports,arguments)
-},{"dup":28,"object-assign":62}],70:[function(require,module,exports){
+},{"_process":82,"dup":28,"object-assign":63,"prop-types/checkPropTypes":64}],70:[function(require,module,exports){
 arguments[4][29][0].apply(exports,arguments)
-},{"./cjs/react.development.js":68,"./cjs/react.production.min.js":69,"_process":81,"dup":29}],71:[function(require,module,exports){
+},{"dup":29,"object-assign":63}],71:[function(require,module,exports){
+arguments[4][30][0].apply(exports,arguments)
+},{"./cjs/react.development.js":69,"./cjs/react.production.min.js":70,"_process":82,"dup":30}],72:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -51648,7 +51669,7 @@ exports.compose = compose;
 exports.createStore = createStore;
 
 }).call(this,require('_process'))
-},{"_process":81,"symbol-observable":78}],72:[function(require,module,exports){
+},{"_process":82,"symbol-observable":79}],73:[function(require,module,exports){
 (function (process){
 /** @license React v0.17.0
  * scheduler-tracing.development.js
@@ -52073,7 +52094,7 @@ exports.unstable_unsubscribe = unstable_unsubscribe;
 }
 
 }).call(this,require('_process'))
-},{"_process":81}],73:[function(require,module,exports){
+},{"_process":82}],74:[function(require,module,exports){
 /** @license React v0.17.0
  * scheduler-tracing.production.min.js
  *
@@ -52085,7 +52106,7 @@ exports.unstable_unsubscribe = unstable_unsubscribe;
 
 'use strict';Object.defineProperty(exports,"__esModule",{value:!0});var b=0;exports.__interactionsRef=null;exports.__subscriberRef=null;exports.unstable_clear=function(a){return a()};exports.unstable_getCurrent=function(){return null};exports.unstable_getThreadID=function(){return++b};exports.unstable_trace=function(a,d,c){return c()};exports.unstable_wrap=function(a){return a};exports.unstable_subscribe=function(){};exports.unstable_unsubscribe=function(){};
 
-},{}],74:[function(require,module,exports){
+},{}],75:[function(require,module,exports){
 (function (process){
 /** @license React v0.17.0
  * scheduler.development.js
@@ -53114,7 +53135,7 @@ exports.unstable_Profiling = unstable_Profiling;
 }
 
 }).call(this,require('_process'))
-},{"_process":81}],75:[function(require,module,exports){
+},{"_process":82}],76:[function(require,module,exports){
 /** @license React v0.17.0
  * scheduler.production.min.js
  *
@@ -53138,7 +53159,7 @@ exports.unstable_scheduleCallback=function(a,b,c){var d=exports.unstable_now();i
 exports.unstable_wrapCallback=function(a){var b=S;return function(){var c=S;S=b;try{return a.apply(this,arguments)}finally{S=c}}};exports.unstable_getCurrentPriorityLevel=function(){return S};exports.unstable_shouldYield=function(){var a=exports.unstable_now();W(a);var b=M(O);return b!==R&&null!==R&&null!==b&&null!==b.callback&&b.startTime<=a&&b.expirationTime<R.expirationTime||k()};exports.unstable_requestPaint=aa;exports.unstable_continueExecution=function(){U||T||(U=!0,f(Y))};
 exports.unstable_pauseExecution=function(){};exports.unstable_getFirstCallbackNode=function(){return M(O)};exports.unstable_Profiling=null;
 
-},{}],76:[function(require,module,exports){
+},{}],77:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -53149,7 +53170,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/scheduler.development.js":74,"./cjs/scheduler.production.min.js":75,"_process":81}],77:[function(require,module,exports){
+},{"./cjs/scheduler.development.js":75,"./cjs/scheduler.production.min.js":76,"_process":82}],78:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -53160,7 +53181,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/scheduler-tracing.development.js":72,"./cjs/scheduler-tracing.production.min.js":73,"_process":81}],78:[function(require,module,exports){
+},{"./cjs/scheduler-tracing.development.js":73,"./cjs/scheduler-tracing.production.min.js":74,"_process":82}],79:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -53192,7 +53213,7 @@ if (typeof self !== 'undefined') {
 var result = (0, _ponyfill2['default'])(root);
 exports['default'] = result;
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./ponyfill.js":79}],79:[function(require,module,exports){
+},{"./ponyfill.js":80}],80:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -53216,7 +53237,7 @@ function symbolObservablePonyfill(root) {
 
 	return result;
 };
-},{}],80:[function(require,module,exports){
+},{}],81:[function(require,module,exports){
 // https://github.com/topojson/topojson-client v3.0.1 Copyright 2019 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -53725,7 +53746,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 }));
 
-},{}],81:[function(require,module,exports){
+},{}],82:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
