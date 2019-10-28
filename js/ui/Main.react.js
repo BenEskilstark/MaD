@@ -40,7 +40,7 @@ function getModal(props: Props): React.Node {
   if (!props.modal) {
     return null;
   }
-  const {title, text, buttons} = props.modal;
+  const {title, text, buttons} = props.state.modal;
   const rect = document.getElementById('container').getBoundingClientRect();
   const buttonHTML = buttons.map(button => {
     return <Button label={button.label} onClick={button.onClick} />;
